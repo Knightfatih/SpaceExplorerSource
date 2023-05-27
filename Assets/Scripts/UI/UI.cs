@@ -25,7 +25,7 @@ namespace Benchmark
         {
             if (!mainMenu)
             {
-                Vector3 cameraPosition = Camera.main.transform.position;
+                Vector3 cameraPosition = UnityEngine.Camera.main.transform.position;
                 string cameraPosString = "Coordinates:\n"
                     + "X: " + cameraPosition.x.ToString("F2") + "\n"
                     + "Y: " + cameraPosition.y.ToString("F2") + "\n"

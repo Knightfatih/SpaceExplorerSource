@@ -5,12 +5,12 @@ using UnityEngine;
 public class CameraZoom : MonoBehaviour
 {
     float startZoom;
-    Camera cam;
+    UnityEngine.Camera cam;
 
     // Start is called before the first frame update
     void Start()
     {
-        cam = Camera.main;
+        cam = UnityEngine.Camera.main;
         startZoom = cam.fieldOfView;
     }
 

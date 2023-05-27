@@ -2,63 +2,63 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MusicManager : MonoBehaviour
+namespace Audio
 {
-    public AudioClip[] musicTracks;
-    private AudioSource audioSource;
-    private int currentTrackIndex = 0;
-
-    private static MusicManager instance;
-
-    public static MusicManager Instance
+    public class MusicManager : MonoBehaviour
     {
-        get { return instance; }
-    }
+        public AudioClip[] musicTracks;
 
-    void Awake()
-    {
-        if (instance != null && instance != this)
+        private AudioSource audioSource;
+        private int currentTrackIndex = 0;
+
+        private static MusicManager instance;
+
+        public static MusicManager Instance => instance;
+
+        void Awake()
         {
-            Destroy(gameObject);
-            return;
+            if (instance != null && instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            instance = this;
+            DontDestroyOnLoad(gameObject);
         }
 
-        instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
-
-    public void Start()
-    {
-        audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.loop = false;
-
-        PlayNextTrack();
-    }
-
-    public void PlayNextTrack()
-    {
-        if (audioSource.isPlaying)
+        public void Start()
         {
-            audioSource.Stop();
-        }
+            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.loop = false;
 
-        audioSource.clip = musicTracks[currentTrackIndex];
-
-        audioSource.Play();
-
-        currentTrackIndex = (currentTrackIndex + 1) % musicTracks.Length;
-    }
-
-    public void Update()
-    {
-        if (!audioSource.isPlaying)
-        {
             PlayNextTrack();
         }
-    }
 
-    public void SetVolume(float volume)
-    {
-        audioSource.volume = volume;
+        public void PlayNextTrack()
+        {
+            if (audioSource.isPlaying)
+            {
+                audioSource.Stop();
+            }
+
+            audioSource.clip = musicTracks[currentTrackIndex];
+            audioSource.Play();
+
+            currentTrackIndex = (currentTrackIndex + 1) % musicTracks.Length;
+        }
+
+        public void Update()
+        {
+            if (!audioSource.isPlaying)
+            {
+                PlayNextTrack();
+            }
+        }
+
+        public void SetVolume(float volume)
+        {
+            audioSource.volume = Mathf.Clamp01(volume);
+        }
     }
 }

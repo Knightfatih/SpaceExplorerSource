@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Audio;
 
 public class MainMenuUI : MonoBehaviour
 {
+    //Menu Game Objects
     public GameObject mainMenu;
     public GameObject playMenu;
     public GameObject settingsMenu;
@@ -14,17 +16,22 @@ public class MainMenuUI : MonoBehaviour
     public GameObject videoMenu;
     public GameObject audioMenu;
 
+    //UI Components
     public Button playButton;
-
     public Slider[] volumeSliders;
     public Toggle[] resolutionToggles;
     public Toggle fullscreenToogle;
     public int[] screenWidths;
     int activeScreenResolutionIndex;
 
+    //Reference
+    private MusicManager musicManager;
+
     // Start is called before the first frame update
     public void Start()
     {
+        musicManager = FindObjectOfType<MusicManager>();
+
         activeScreenResolutionIndex = PlayerPrefs.GetInt("Screen Resolution Index");
         bool isFullscreen = (PlayerPrefs.GetInt("Fullscreen") == 1) ? true : false;
 
@@ -38,19 +45,18 @@ public class MainMenuUI : MonoBehaviour
 
     public void HandleInputData(int val)
     {
-        if (val == 0)
+        switch (val)
         {
-            playButton.onClick.AddListener(() => Play("Classic"));
+            case 0:
+                playButton.onClick.AddListener(() => Play("Classic"));
+                break;
+            case 1:
+                playButton.onClick.AddListener(() => Play("ECSConversion"));
+                break;
+            case 2:
+                playButton.onClick.AddListener(() => Play("ECSPure"));
+                break;
         }
-        if (val == 1)
-        {
-            playButton.onClick.AddListener(() => Play("ECSConversion"));
-        }
-        if (val == 2)
-        {
-            playButton.onClick.AddListener(() => Play("ECSPure"));
-        }
-
     }
 
     public void Play(string sceneName)
@@ -70,54 +76,68 @@ public class MainMenuUI : MonoBehaviour
         Application.Quit();
     }
 
-    public void MainMenu()
+    public void ShowMenu(GameObject menuToShow)
     {
-        mainMenu.SetActive(true);
-        settingsMenu.SetActive(false);
-        creditsMenu.SetActive(false);
+        mainMenu.SetActive(false);
         playMenu.SetActive(false);
-    }
-
-    public void PlayMenu()
-    {
-        mainMenu.SetActive(false);
-        playMenu.SetActive(true);
-    }
-
-    public void SettingsMenu()
-    {
-        mainMenu.SetActive(false);
-        settingsMenu.SetActive(true);
+        settingsMenu.SetActive(false);
         creditsMenu.SetActive(false);
         controlsMenu.SetActive(false);
         videoMenu.SetActive(false);
         audioMenu.SetActive(false);
+
+        menuToShow.SetActive(true);
     }
 
-    public void CreditsMenu()
-    {
-        mainMenu.SetActive(false);
-        settingsMenu.SetActive(false);
-        creditsMenu.SetActive(true);
-    }
+    //public void MainMenu()
+    //{
+    //    mainMenu.SetActive(true);
+    //    settingsMenu.SetActive(false);
+    //    creditsMenu.SetActive(false);
+    //    playMenu.SetActive(false);
+    //}
 
-    public void ControlsMenu()
-    {
-        controlsMenu.SetActive(true);
-        settingsMenu.SetActive(false);
-    }
+    //public void PlayMenu()
+    //{
+    //    mainMenu.SetActive(false);
+    //    playMenu.SetActive(true);
+    //}
 
-    public void VideoMenu()
-    {
-        videoMenu.SetActive(true);
-        settingsMenu.SetActive(false);
-    }
+    //public void SettingsMenu()
+    //{
+    //    mainMenu.SetActive(false);
+    //    settingsMenu.SetActive(true);
+    //    creditsMenu.SetActive(false);
+    //    controlsMenu.SetActive(false);
+    //    videoMenu.SetActive(false);
+    //    audioMenu.SetActive(false);
+    //}
 
-    public void AudioMenu()
-    {
-        audioMenu.SetActive(true);
-        settingsMenu.SetActive(false);
-    }
+    //public void CreditsMenu()
+    //{
+    //    mainMenu.SetActive(false);
+    //    settingsMenu.SetActive(false);
+    //    creditsMenu.SetActive(true);
+    //}
+
+    //public void ControlsMenu()
+    //{
+    //    controlsMenu.SetActive(true);
+    //    settingsMenu.SetActive(false);
+    //}
+
+    //public void VideoMenu()
+    //{
+    //    videoMenu.SetActive(true);
+    //    settingsMenu.SetActive(false);
+    //}
+
+    //public void AudioMenu()
+    //{
+    //    audioMenu.SetActive(true);
+    //    settingsMenu.SetActive(false);
+    //}
+
     public void SetScreenResolution(int i)
     {
         if (resolutionToggles[i].isOn)
@@ -146,8 +166,9 @@ public class MainMenuUI : MonoBehaviour
         {
             SetScreenResolution(activeScreenResolutionIndex);
         }
-        PlayerPrefs.SetInt("Fullscreen", ((isFullscreen) ? 1 : 0));
+        PlayerPrefs.SetInt("Fullscreen", isFullscreen ? 1 : 0);
         PlayerPrefs.Save();
+        Debug.Log(isFullscreen);
     }
 
     public void SetMasterVolume(float value)
@@ -156,7 +177,7 @@ public class MainMenuUI : MonoBehaviour
         {
             if (slider.name == "MasterVolume")
             {
-                MusicManager musicManager = FindObjectOfType<MusicManager>();
+                //MusicManager musicManager = FindObjectOfType<MusicManager>();
                 musicManager.SetVolume(slider.value);
                 PlayerPrefs.SetFloat("MasterVolume", slider.value);
                 PlayerPrefs.Save();
