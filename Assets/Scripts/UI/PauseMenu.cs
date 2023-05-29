@@ -3,63 +3,67 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PauseMenu : MonoBehaviour
+namespace Menu
 {
-    public GameObject pauseMenu;
-    public GameObject settingsMenu;
-    public static bool gameIsPaused;
-
-    private void Update()
+    public class PauseMenu : MonoBehaviour
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        public GameObject pauseMenu;
+        public GameObject settingsMenu;
+        public static bool gameIsPaused { get; private set; }
+
+        private void Update()
         {
-            if (gameIsPaused)
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                Resume();
+                if (gameIsPaused)
+                {
+                    Resume();
+                }
+                else
+                {
+                    Pause();
+                }
             }
-            else
-            {
-                Pause();
-            }
+        }
+
+        public void Resume()
+        {
+            pauseMenu.SetActive(false);
+            settingsMenu.SetActive(false);
+            Time.timeScale = 1f;
+            gameIsPaused = false;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+
+        public void Pause()
+        {
+            pauseMenu.SetActive(true);
+            settingsMenu.SetActive(false);
+            Time.timeScale = 0f;
+            gameIsPaused = true;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+
+        public void SettingMenu()
+        {
+            pauseMenu.SetActive(false);
+            settingsMenu.SetActive(true);
+        }
+
+        public void LoadMenu()
+        {
+            Time.timeScale = 1f;
+            gameIsPaused = false;
+            SceneManager.LoadScene("MainMenu");
+        }
+
+        public void Exit()
+        {
+            Debug.Log("Exit");
+            Application.Quit();
         }
     }
 
-    public void Resume()
-    {
-        pauseMenu.SetActive(false);
-        settingsMenu.SetActive(false);
-        Time.timeScale = 1f;
-        gameIsPaused = false;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-    }
-
-    public void Pause()
-    {
-        pauseMenu.SetActive(true);
-        settingsMenu.SetActive(false);
-        Time.timeScale = 0f;
-        gameIsPaused = true;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-    }
-
-    public void SettingMenu()
-    {
-        pauseMenu.SetActive(false);
-        settingsMenu.SetActive(true);
-    }
-
-    public void LoadMenu()
-    {
-        Time.timeScale = 1f;
-        gameIsPaused = false;
-        SceneManager.LoadScene("MainMenu");
-    }
-
-    public void Exit()
-    {
-        Debug.Log("Exit");
-        Application.Quit();
-    }
 }

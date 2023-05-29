@@ -1003,13 +1003,13 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 2250266846456996294}
-        m_MethodName: StartZoomingCredits
-        m_Mode: 1
+        m_MethodName: StartUnzoom
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 20
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -2601,13 +2601,13 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 2250266846456996294}
-        m_MethodName: StartUnzoomingCredits
-        m_Mode: 1
+        m_MethodName: StartZoom
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 20
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -4471,13 +4471,13 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 2250266846456996294}
-        m_MethodName: StartUnzoomingSettings
-        m_Mode: 1
+        m_MethodName: StartUnzoom
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 100
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -5528,13 +5528,13 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 2250266846456996294}
-        m_MethodName: StartZooming
-        m_Mode: 1
+        m_MethodName: StartZoom
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 179
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -5946,13 +5946,13 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 2250266846456996294}
-        m_MethodName: StartZoomingSettings
-        m_Mode: 1
+        m_MethodName: StartZoom
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 100
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -6255,13 +6255,13 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 2250266846456996294}
-        m_MethodName: StartUnzooming
-        m_Mode: 1
+        m_MethodName: StartUnzoom
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 179
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -7756,6 +7756,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9cb09e3ee60aa146a528c12905129cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startZoom: 0
 --- !u!114 &2250266846456996295
 MonoBehaviour:
   m_ObjectHideFlags: 0

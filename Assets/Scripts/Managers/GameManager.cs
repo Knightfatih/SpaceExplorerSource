@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using Unity.Entities;
 using Benchmark.ECS;
+using Menu;
 
 [System.Serializable]
 public enum Mode
@@ -73,7 +74,7 @@ namespace Benchmark
         {
             if (!demo)
             {
-                if (Input.GetKeyDown(KeyCode.Space))
+                if (Input.GetKeyDown(KeyCode.Space) && !PauseMenu.gameIsPaused)
                 {
                     spawner?.SpawnUnit(spawnIncrement);
                     Debug.Log(spawnIncrement);

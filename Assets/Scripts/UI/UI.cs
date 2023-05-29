@@ -47,8 +47,6 @@ namespace Benchmark
                     spawnTotalTextMesh.text = " " + (Spawner.spawner.sphereClassic.Count + Spawner.spawner.initialNumToSpawn).ToString();
                 }
             }
-            //if (spawnTotalTextMesh != null)
-            //    spawnTotalTextMesh.text = totalSpawned.ToString();
         }
 
         public void ShowModeText()

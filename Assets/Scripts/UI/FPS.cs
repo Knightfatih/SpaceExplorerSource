@@ -9,7 +9,7 @@ namespace Benchmark
     {
         private float deltaTime = 0.0f;
 
-        public TextMeshPro textMesh;
+        [SerializeField] private TextMeshPro textMesh;
 
         // Update is called once per frame
         void Update()
