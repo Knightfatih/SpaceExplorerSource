@@ -62,21 +62,10 @@ namespace Benchmark
                 Values();
             }
 
-            ////Spawner
-            //int numberToSpawnValue = int.Parse(numberToSpawnField.text);
-            //int seedValue = int.Parse(seedField.text);
-            //float heightRangeValue = float.Parse(heightRangeField.text);
-
-            ////Game Manager
-            //float upperBoundsValue = float.Parse(upperBoundsField.text);
-            //float leftBoundsValue = float.Parse(leftBoundsField.text);
-            //float rightBoundsValue = float.Parse(rightBoundsField.text);
-            //float bottomBoundsValue = float.Parse(bottomBoundsField.text);
-
             //Spawner Reference
             Spawner.spawner.initialNumToSpawn = numberToSpawnValue;
             Spawner.spawner.seed = seedValue;
-            Spawner.spawner.HeightRange = heightRangeValue;
+            Spawner.spawner.heightRange = heightRangeValue;
 
             //Game Manager Reference
             GameManager.Instance.upperBounds = upperBoundsValue;

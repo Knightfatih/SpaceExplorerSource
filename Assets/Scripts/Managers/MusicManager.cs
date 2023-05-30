@@ -6,7 +6,7 @@ namespace Audio
 {
     public class MusicManager : MonoBehaviour
     {
-        public AudioClip[] musicTracks;
+        [SerializeField] public AudioClip[] musicTracks;
 
         private AudioSource audioSource;
         private int currentTrackIndex = 0;

@@ -99,7 +99,7 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: fea2fee54ef752940b98125777ad207e,
     type: 2}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1630,9 +1630,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbc44b7c5b99eb24ea12a1f3b2db4a80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: 12345
   initialNumToSpawn: 500
-  HeightRange: 50
+  seed: 12345
+  heightRange: 50
   maxScale: 1
   maxSpeed: 25
   unitMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
@@ -1640,6 +1640,15 @@ MonoBehaviour:
     type: 3}
   ECSConversionPrefab: {fileID: 7145632230606969817, guid: dc960f471bfe9bd49924fc8bd45d66d4,
     type: 3}
+  planetMaterials:
+  - {fileID: 2100000, guid: fc0c069bd7d1e5e4f9ee8529c473104d, type: 2}
+  - {fileID: 2100000, guid: f7a2d8fb235dd274193c815dc6d4e17f, type: 2}
+  - {fileID: 2100000, guid: f2ce9f66da68ad74d8d13806089bb5eb, type: 2}
+  - {fileID: 2100000, guid: d1b9b2ac44ffd63468f24240dffcfc53, type: 2}
+  - {fileID: 2100000, guid: 8ecd9832c9407234dacf327d547ff353, type: 2}
+  - {fileID: 2100000, guid: 633c737487399bb4fa90a04b212b9976, type: 2}
+  - {fileID: 2100000, guid: cc894c1e2e6adde40a6416a7ec5f72e5, type: 2}
+  - {fileID: 2100000, guid: a0adf959fe1dec64a802f9c0a50cc76a, type: 2}
   planetMaterial_1: {fileID: 2100000, guid: fc0c069bd7d1e5e4f9ee8529c473104d, type: 2}
   planetMaterial_2: {fileID: 2100000, guid: f7a2d8fb235dd274193c815dc6d4e17f, type: 2}
   planetMaterial_3: {fileID: 2100000, guid: f2ce9f66da68ad74d8d13806089bb5eb, type: 2}

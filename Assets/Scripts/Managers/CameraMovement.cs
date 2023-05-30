@@ -10,6 +10,10 @@ namespace Camera
         private float yaw = 0f;
         private float pitch = 0f;
 
+        private float maxAngle = 90f;
+        private float minAngle = -90f;
+        private float speedMultiplier = 2f;
+
         private void Update()
         {
             HandleInput();
@@ -24,7 +28,7 @@ namespace Camera
             float mouseX = Input.GetAxis("Mouse X");
             float mouseY = Input.GetAxis("Mouse Y");
 
-            float currentMovementSpeed = Input.GetKey(KeyCode.LeftShift) ? movementSpeed * 2f : movementSpeed;
+            float currentMovementSpeed = Input.GetKey(KeyCode.LeftShift) ? movementSpeed * speedMultiplier : movementSpeed;
 
             UpdateYaw(mouseX);
             UpdatePitch(mouseY);
@@ -48,7 +52,7 @@ namespace Camera
 
         private void ClampPitch()
         {
-            pitch = Mathf.Clamp(pitch, -90f, 90f);
+            pitch = Mathf.Clamp(pitch, minAngle, maxAngle);
         }
 
         private void RotateCamera()

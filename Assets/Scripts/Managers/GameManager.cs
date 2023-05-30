@@ -21,8 +21,8 @@ namespace Benchmark
     {
         [Header("Settings")]
         [SerializeField] private Mode mode;
-        [SerializeField] bool useJobs;
-        [SerializeField] bool useBurst;
+        [SerializeField] private bool useJobs;
+        [SerializeField] private bool useBurst;
 
         [Header("Spawn")]
         [SerializeField] private Spawner spawner;
@@ -72,16 +72,12 @@ namespace Benchmark
 
         private void Update()
         {
-            if (!demo)
+            if (!demo && Input.GetKeyDown(KeyCode.Space) && !PauseMenu.gameIsPaused)
             {
-                if (Input.GetKeyDown(KeyCode.Space) && !PauseMenu.gameIsPaused)
-                {
-                    spawner?.SpawnUnit(spawnIncrement);
-                    Debug.Log(spawnIncrement);
-                }
+                spawner.SpawnUnit(spawnIncrement);
+                Debug.Log(spawnIncrement);
             }
         }
-
 
         private void SetSystemMode()
         {

@@ -15,9 +15,9 @@ namespace Benchmark
     public class Spawner : MonoBehaviour
     {
         [Header("Options")]
-        [SerializeField] public int seed = 12345;
         [SerializeField] public int initialNumToSpawn;
-        [SerializeField] public float HeightRange = 1;
+        [SerializeField] public int seed = 12345;
+        [SerializeField] public float heightRange = 50f;
         [SerializeField] private float maxScale = 1f;
         [SerializeField] private float maxSpeed = 25f;
 
@@ -27,21 +27,13 @@ namespace Benchmark
         [SerializeField] private GameObject ECSConversionPrefab;
 
         [Header("Materials")]
-        [SerializeField] private Material planetMaterial_1;
-        [SerializeField] private Material planetMaterial_2;
-        [SerializeField] private Material planetMaterial_3;
-        [SerializeField] private Material planetMaterial_4;
-        [SerializeField] private Material planetMaterial_5;
-        [SerializeField] private Material planetMaterial_6;
-        [SerializeField] private Material planetMaterial_7;
-        [SerializeField] private Material planetMaterial_8;
+        [SerializeField] private Material[] planetMaterials;
 
-        private int totalSpawned;
         private EntityManager entityManager;
-        private World defaultWorld;
         private EntityArchetype archetype;
         private Entity unitEntityPrefab;
         public Mode mode;
+        //private World defaultWorld;
         private System.Random rng;
 
         public static Spawner spawner;
@@ -89,7 +81,6 @@ namespace Benchmark
             foreach (Entity ent in spheres)
             {
                 entityManager.DestroyEntity(ent);
-                //Debug.Log("Entites have been Deleted");
             }
             spheres.Clear();
 
@@ -104,7 +95,7 @@ namespace Benchmark
         {
             if (mode == Mode.ECSPure)
             {
-                defaultWorld = World.DefaultGameObjectInjectionWorld;
+                var defaultWorld = World.DefaultGameObjectInjectionWorld;
                 entityManager = defaultWorld.EntityManager;
                 archetype = entityManager.CreateArchetype
                 (
@@ -123,7 +114,7 @@ namespace Benchmark
         {
             if (mode == Mode.ECSConversion)
             {
-                defaultWorld = World.DefaultGameObjectInjectionWorld;
+                var defaultWorld = World.DefaultGameObjectInjectionWorld;
                 entityManager = defaultWorld.EntityManager;
                 GameObjectConversionSettings settings = GameObjectConversionSettings.FromWorld(defaultWorld, null);
                 unitEntityPrefab = GameObjectConversionUtility.ConvertGameObjectHierarchy(ECSConversionPrefab, settings);
@@ -132,7 +123,6 @@ namespace Benchmark
 
         public void SpawnUnit(int numToSpawn)
         {
-            //totalSpawned += numToSpawn;
             GameManager.Instance.HeadsUpDisplay.ShowTotalText();
 
             switch (mode)
@@ -163,7 +153,6 @@ namespace Benchmark
                 renderer.material = GetRandomMaterial();
 
                 sphereClassic.Add(instance);
-                //Debug.Log(sphereClassic.Count);
             }
         }
 
@@ -173,7 +162,6 @@ namespace Benchmark
             {
                 Entity myEntity = entityManager.Instantiate(unitEntityPrefab);
                 entityManager.SetComponentData(myEntity, new Translation { Value = GetNoisePosition(rng) });
-
                 entityManager.AddComponentData(myEntity, new MoveForward { speed = GetRandomSpeed(rng) });
                 entityManager.AddComponentData(myEntity, new Scale { Value = GetRandomScale(rng) });
                 entityManager.SetSharedComponentData(myEntity, new RenderMesh
@@ -192,16 +180,13 @@ namespace Benchmark
                 Entity myEntity = entityManager.CreateEntity(archetype);
 
                 entityManager.AddComponentData(myEntity, new Translation { Value = GetNoisePosition(rng) });
+                entityManager.AddComponentData(myEntity, new MoveForward { speed = GetRandomSpeed(rng) });
                 entityManager.AddComponentData(myEntity, new Scale { Value = GetRandomScale(rng) });
-
                 entityManager.SetSharedComponentData(myEntity, new RenderMesh
                 {
                     mesh = unitMesh,
                     material = GetRandomMaterial()
                 });
-
-                entityManager.AddComponentData(myEntity, new MoveForward { speed = GetRandomSpeed(rng) });
-
                 spheres.Add(myEntity);
             }
         }
@@ -215,49 +200,27 @@ namespace Benchmark
             float z = Mathf.PerlinNoise((float)rng.NextDouble(), 2);
 
             float randomX = Mathf.Lerp(GameManager.Instance.LeftBounds, GameManager.Instance.RightBounds, x);
-            float randomY = Mathf.Lerp(-HeightRange, HeightRange, y);
+            float randomY = Mathf.Lerp(-heightRange, heightRange, y);
             float randomZ = Mathf.Lerp(GameManager.Instance.UpperBounds, GameManager.Instance.BottomBounds, z);
 
             position += new float3(randomX, randomY, randomZ);
-            //Debug.Log(position);
 
             return position;
         }
-
-        //private float3 GetRandomPosition()
-        //{
-        //    float randomX = UnityEngine.Random.Range(GameManager.Instance.LeftBounds, GameManager.Instance.RightBounds);
-        //    float randomY = UnityEngine.Random.Range(-1f, 1f) * HeightRange;
-        //    float randomZ = UnityEngine.Random.Range(GameManager.Instance.UpperBounds, GameManager.Instance.BottomBounds);
-        //    return new float3(randomX, randomY, randomZ);
-        //}
         
         public Material GetRandomMaterial()
         {
-            Material[] planetMaterials = new Material[]
-            {
-                planetMaterial_1,
-                planetMaterial_2,
-                planetMaterial_3,
-                planetMaterial_4,
-                planetMaterial_5,
-                planetMaterial_6,
-                planetMaterial_7,
-                planetMaterial_8
-            };
-
-            //int randomIndex = UnityEngine.Random.Range(0, planetMaterials.Length);
             int randomIndex = rng.Next(0, planetMaterials.Length);
             return planetMaterials[randomIndex];
         }
 
-        private float GetRandomSpeed(System.Random rng) //Delete System.Random rng if doesnt work
+        private float GetRandomSpeed(System.Random rng)
         {
             float minSpeed = 1f;
             return UnityEngine.Random.Range(minSpeed, maxSpeed);
         }
 
-        private float GetRandomScale(System.Random rng) //Delete System.Random rng if doesnt work
+        private float GetRandomScale(System.Random rng)
         {
             const float scaleMin = 0.1f;
             return UnityEngine.Random.Range(scaleMin, maxScale);
