@@ -2,8 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace demo
+namespace Demo
 {
+    [System.Serializable]
+    public class Catalogue
+    {
+        public List<Star> Stars { get; set; }
+    }
+
     [System.Serializable]
     public class Star
     {

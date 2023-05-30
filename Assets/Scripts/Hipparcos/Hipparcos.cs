@@ -11,7 +11,7 @@ using TMPro;
 using UnityEngine.UI;
 using Benchmark;
 
-namespace demo
+namespace Demo
 {
     [System.Serializable]
     public class Hipparcos : MonoBehaviour
@@ -28,13 +28,13 @@ namespace demo
 
         public List<Entity> demoSpheres = new List<Entity>();
 
-        public TextAsset test;
+        public TextAsset data;
 
         // Start is called before the first frame update
-        void Awake()
+        private void Awake()
         {
-            string jsonData = test.text;
-            Catalogue catalogue = JsonConvert.DeserializeObject<Catalogue>(jsonData);
+            string jsonData = data.text;
+            Catalogue catalogue = JsonConvert.DeserializeObject<Catalogue>(jsonData); //FromJson
 
             entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
             starArchetype = entityManager.CreateArchetype(
@@ -49,7 +49,7 @@ namespace demo
             ShowPopulation();
         }
 
-        void ShowPopulation()
+        private void ShowPopulation()
         {
             planetPopulation.text = "Stars: " + demoSpheres.Count.ToString();
         }
@@ -63,7 +63,7 @@ namespace demo
             yield return null;
         }
 
-        void SpawnStar(Star star)
+        private void SpawnStar(Star star)
         {
             Material starMaterial;
 

@@ -8,7 +8,7 @@ namespace Benchmark.Classic
     public class Movement : MonoBehaviour
     {
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
             Vector3 pos = transform.position;
             pos += transform.forward * GameManager.Instance.moveSpeed * Time.deltaTime;
